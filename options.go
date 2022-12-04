@@ -13,7 +13,8 @@ type Options struct {
 var opts = Options{}
 
 func ParseOptions() {
-	flag.BoolVar(&opts.IsDryRun, "dry", false, "not to rewrite files, only output diff")
+	flag.BoolVar(&opts.IsDryRun, "dry", false, "not to rewrite files, only output diff (long)")
+	flag.BoolVar(&opts.IsDryRun, "d", false, "not to rewrite files, only output diff (short)")
 	flag.Parse()
 	args := flag.Args()
 	if len(args) < 2 {
