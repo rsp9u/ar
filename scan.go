@@ -2,7 +2,6 @@ package ar
 
 import (
 	"io/fs"
-	"log"
 	"path/filepath"
 )
 
@@ -17,11 +16,9 @@ func ScanDirectory(root string, ignore func(string) bool) []string {
 			return nil
 		}
 		if !d.IsDir() {
-			// ret = append(ret, path)
 			ret, err := Replace(path, opts.Src, opts.Dst)
 			if err == nil {
-				log.Println(ret[0])
-				log.Println(ret[1])
+				PrintDiff(path, ret[0], ret[1])
 			}
 		}
 		return nil
