@@ -2,6 +2,7 @@ package ar
 
 import (
 	"strings"
+	"sync"
 
 	"github.com/fatih/color"
 	godiffpatch "github.com/sourcegraph/go-diff-patch"
@@ -26,4 +27,23 @@ func colorPrint(diff string) {
 func PrintDiff(filepath, before, after string) {
 	diff := godiffpatch.GeneratePatch(filepath, before, after)
 	colorPrint(diff)
+}
+
+func RunPrintWorker() *sync.WaitGroup {
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for {
+			select {
+			case diff := <-printableDiffs:
+				PrintDiff(diff[0], diff[1], diff[2])
+			default:
+				if replaceDone {
+					return
+				}
+			}
+		}
+	}()
+	return &wg
 }

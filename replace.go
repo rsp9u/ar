@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"strings"
+	"sync"
 
 	"golang.org/x/tools/godoc/util"
 )
@@ -54,4 +55,29 @@ func Replace(filepath string, src, dst string) ([2]string, error) {
 	}
 
 	return ret, err
+}
+
+func RunReplaceWorker(workerNum int) *sync.WaitGroup {
+	var wg sync.WaitGroup
+	for i := 0; i < workerNum; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for {
+				select {
+				case path := <-replaceTargets:
+					ret, err := Replace(path, opts.Src, opts.Dst)
+					if err == nil {
+						printableDiffs <- [3]string{path, ret[0], ret[1]}
+					}
+				default:
+					if scanDone {
+						replaceDone = true
+						return
+					}
+				}
+			}
+		}()
+	}
+	return &wg
 }
