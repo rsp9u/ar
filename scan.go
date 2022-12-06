@@ -35,5 +35,4 @@ func ScanDirectory(root string, ignore func(string) bool) {
 	if err != nil {
 		panic(err)
 	}
-	scanDone = true
 }

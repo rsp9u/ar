@@ -39,7 +39,7 @@ func RunPrintWorker() *sync.WaitGroup {
 			case diff := <-printableDiffs:
 				PrintDiff(diff[0], diff[1], diff[2])
 			default:
-				if replaceDone {
+				if isDoneReplacing {
 					return
 				}
 			}

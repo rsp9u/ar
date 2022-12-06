@@ -71,8 +71,7 @@ func RunReplaceWorker(workerNum int) *sync.WaitGroup {
 						printableDiffs <- [3]string{path, ret[0], ret[1]}
 					}
 				default:
-					if scanDone {
-						replaceDone = true
+					if isDoneScanning {
 						return
 					}
 				}
