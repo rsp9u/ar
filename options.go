@@ -1,7 +1,7 @@
 package ar
 
 import (
-	"flag"
+	"github.com/juju/gnuflag"
 )
 
 type Options struct {
@@ -13,10 +13,10 @@ type Options struct {
 var opts = Options{}
 
 func ParseOptions() {
-	flag.BoolVar(&opts.IsDryRun, "dry", false, "not to rewrite files, only output diff (long)")
-	flag.BoolVar(&opts.IsDryRun, "d", false, "not to rewrite files, only output diff (short)")
-	flag.Parse()
-	args := flag.Args()
+	gnuflag.BoolVar(&opts.IsDryRun, "dry", false, "")
+	gnuflag.BoolVar(&opts.IsDryRun, "d", false, "not to overwrite files, only output diff")
+	gnuflag.Parse(true)
+	args := gnuflag.Args()
 	if len(args) < 2 {
 		panic("too few arguments.")
 	}

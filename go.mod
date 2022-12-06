@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/fatih/color v1.13.0
+	github.com/juju/gnuflag v1.0.0
 	github.com/sourcegraph/go-diff-patch v0.0.0-20220818153721-50706a0e22c3
 	golang.org/x/tools v0.3.0
 )
