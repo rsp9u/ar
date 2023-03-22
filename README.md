@@ -6,7 +6,7 @@ ag-like text replacement tool.
 
 ## usage
 ```
-$ ar <before> <after>
+$ ar [-d|-dry] <before> <after> [<target file/dir> ...]
 ```
 
 ## in-place mode (default)
