@@ -26,7 +26,7 @@ func ParseOptions() error {
 	opts.Src = args[0]
 	opts.Dst = args[1]
 	if len(args) < 3 {
-		opts.Targets = []string{}
+		opts.Targets = []string{"."}
 	} else {
 		opts.Targets = args[2:]
 	}
